@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: many-pod
+  namespace: manypods
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: many-pod
+  template:
+    metadata:
+      labels:
+        app: many-pod
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:latest
+          resources:
+            limits:
+              memory: "64Mi"
+              cpu: "500m"
+          ports:
+          - containerPort: 3456
+        - name: redis
+          image: redis:7.4.2-bookworm
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 2345
+
