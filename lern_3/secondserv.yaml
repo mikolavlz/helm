@@ -1,23 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis
+  name: kafka
+  namespace: custom-namespace
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
-      app: redis
+      app: kafka
   template:
     metadata:
       labels:
-        app: redis
+        app: kafka
     spec:
       containers:
-      - name: redis
-        image: redis:latest
+      - name: kafka
+        image: apache/kafka:latest
         resources:
           limits:
             memory: "128Mi"
             cpu: "500m"
         ports:
-        - containerPort: 2345
+        - containerPort: 3456
